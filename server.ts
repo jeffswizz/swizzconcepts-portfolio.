@@ -115,7 +115,11 @@ function sanitizeSafeUrl(value: unknown, fallback = ''): string {
   if (typeof value !== 'string') return fallback;
   const trimmed = value.trim();
   if (!trimmed) return '';
-  if (trimmed.startsWith('/api/uploads/') || trimmed.startsWith('/src/assets/')) {
+  if (
+    trimmed.startsWith('/api/uploads/') ||
+    trimmed.startsWith('/src/assets/') ||
+    trimmed.startsWith('/assets/')
+  ) {
     return trimmed.slice(0, 500);
   }
   try {

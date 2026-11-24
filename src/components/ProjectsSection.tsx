@@ -417,12 +417,12 @@ export function ProjectsSection({
               {(activeProject.coverImageUrl || (activeProject.galleryImages && activeProject.galleryImages.length > 0)) && (
                 <div className="space-y-3">
                   {activeProject.coverImageUrl && (
-                    <div className="rounded-xl overflow-hidden border border-[#E8DFD0] dark:border-[#2A2A2E] bg-[#242424]">
+                    <div className="rounded-xl overflow-hidden border border-[#E8DFD0] dark:border-[#2A2A2E] bg-[#141416]">
                       <img
                         src={activeProject.coverImageUrl}
                         alt={`${activeProject.title} workflow preview`}
                         referrerPolicy="no-referrer"
-                        className="w-full max-h-80 object-cover"
+                        className="w-full max-h-96 object-contain"
                       />
                     </div>
                   )}

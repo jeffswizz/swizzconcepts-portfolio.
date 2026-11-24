@@ -13,7 +13,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
     location: 'Enugu, Nigeria',
     availabilityText: 'Available for Automation Projects & Technical Roles',
     isAvailable: true,
-    portraitUrl: '/src/assets/images/hero_jefferson_portrait_1795508013706.jpg',
+    portraitUrl: '/assets/aistudio/file_00000000e16c8210b57d63895edd10dd_09cba69d.png',
     email: 'nnajichukwumajefferson@gmail.com',
     whatsappUrl: 'https://wa.me/2348168819791',
     whatsappDisplay: '+234(0)8168819791',
@@ -460,6 +460,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'The system separates ingestion from querying: whenever source documentation changes, an n8n indexing flow updates the vector store automatically. At query time, user questions are embedded, matched against stored vectors, and passed into a strict prompt template that restricts answers to retrieved facts.',
       businessValue:
         'Centralizes institutional knowledge into a single queryable interface, reducing internal search friction and improving answer consistency across staff.',
+      coverImageUrl: '/assets/aistudio/IMG-20261020-WA0210_d3a08e76.jpg',
     },
     {
       id: 'proj-audit-report',
@@ -554,6 +555,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Incoming emails are filtered and passed through an information-extraction prompt returning strict JSON (company, role, status, action_date). An upsert routine updates existing rows instead of creating duplicates.',
       businessValue:
         'Maintains an always-current, searchable application pipeline with zero manual spreadsheet entry.',
+      coverImageUrl: '/assets/aistudio/IMG-20260813-WA0144_114cc1d3.jpg',
     },
     {
       id: 'proj-airline-notify',
@@ -577,6 +579,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'To avoid noisy repeat messages, the workflow compares the latest API payload against the last recorded flight state in storage and fires notifications strictly on meaningful status transitions.',
       businessValue:
         'Delivers proactive itinerary visibility and reduces missed updates for travelers and operations coordinators.',
+      coverImageUrl: '/assets/aistudio/IMG-20260810-WA0045_bdd1100c.jpg',
     },
     {
       id: 'proj-b2b-lead-crm',
@@ -747,10 +750,10 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'CRM Automation',
         'RAG-Based Systems',
       ],
-      certificateTitle: 'Certificate of Completion — AI & Automation Engineering',
-      certificateId: 'TSA-AI-AUTO-2025',
-      issuedDate: 'TS Academy Cohort Graduate',
-      certificateImageUrl: '',
+      certificateTitle: 'Certificate of Completion — AI & Automation',
+      certificateId: 'TSEGEZAWBCZUP9',
+      issuedDate: 'October 30, 2026 · TS Academy Cohort',
+      certificateImageUrl: '/assets/aistudio/Screenshot_20261119-152958.Gallery_dc04b7a0.jpg',
       linkedProjectIds: ['proj-rag-assistant', 'proj-audit-report'],
     },
     {
@@ -767,10 +770,10 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Prompt engineering',
         'Workflow testing and debugging',
       ],
-      certificateTitle: 'Internship Completion — AI Automation Specialist',
-      certificateId: 'BB-INTERN-AI-2025',
-      issuedDate: 'Big Brains Engineering Program',
-      certificateImageUrl: '',
+      certificateTitle: 'Certificate of Completion — AI Automation Using n8n',
+      certificateId: 'BB-B25E8AFF8320',
+      issuedDate: 'October 28, 2026 · Big Brains Internship',
+      certificateImageUrl: '/assets/aistudio/Screenshot_20261119-153310.Gallery_c5c871b9.png',
       linkedProjectIds: ['proj-b2b-lead-crm', 'proj-daily-bi'],
     },
   ],
