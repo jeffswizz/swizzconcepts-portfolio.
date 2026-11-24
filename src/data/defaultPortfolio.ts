@@ -1,4 +1,4 @@
-import { PortfolioData } from '../types/portfolio.ts';
+import type { PortfolioData } from '../types/portfolio.ts';
 
 export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
   profile: {
@@ -485,30 +485,32 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Form responses trigger a multi-node evaluation pipeline. A JavaScript normalization node scores numeric readiness inputs while an LLM drafts tailored process recommendations constrained to a strict JSON schema before compiling the final report.',
       businessValue:
         'Shortens report turnaround time from hours of manual drafting to minutes while ensuring consistent diagnostic structure for every prospect.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_11-47-27_58799104.jpg',
     },
     {
-      id: 'proj-telegram-support',
-      title: 'Telegram AI Customer Support Bot',
-      category: 'AI Customer Support',
+      id: 'proj-telegram-bot-reply',
+      title: 'Telegram Bot Reply',
+      category: 'AI Agents & Search',
       status: 'Active System',
       featured: true,
       overview:
-        'An intelligent conversational support bot on Telegram capable of handling FAQs, classifying customer issues, and routing complex requests to human operators.',
+        'An AI-powered Telegram search assistant that answers questions in real time like a conversational search engine using live web results and chat memory.',
       businessProblem:
-        'High volumes of repetitive Telegram inquiries overwhelm small support teams and delay responses outside standard working hours.',
+        'Users often leave chat threads to manually look up current facts across search engines, losing conversational context and speed.',
       solutionImplemented:
-        'Built a Telegram Bot webhook listener in n8n integrated with LLM intent classification, conversation context tracking, and automated escalation alerts.',
-      tools: ['n8n', 'Telegram', 'OpenAI', 'Google Gemini', 'Airtable', 'Webhooks'],
+        'Built an n8n AI Agent triggered by Telegram messages, paired with Google Gemini Chat Model, Simple Memory for follow-up context, and live SerpApi Google Search and Tavily search tools.',
+      tools: ['n8n', 'Telegram', 'Google Gemini', 'AI Agents', 'SerpApi', 'Tavily', 'Simple Memory'],
       workflowSteps: [
-        'Incoming Telegram message arrives via Bot API webhook',
-        'AI agent classifies intent (FAQ, billing, technical issue, escalation)',
-        'Knowledge lookup generates accurate reply or logs support ticket in Airtable',
-        'Bot sends immediate response back to the user in Telegram',
+        'Incoming user question arrives through the Telegram Trigger node',
+        'AI Agent retrieves prior conversation turns from Simple Memory',
+        'Agent queries Google Search (SerpApi) or Tavily for live information',
+        'Google Gemini synthesizes a clear reply and sends it back on Telegram',
       ],
       workflowExplanation:
-        'Every Telegram update hits an n8n webhook node. After checking session history in Airtable, an AI classifier determines whether the query can be resolved directly from approved knowledge or requires tagging a human team member with a concise ticket summary.',
+        'Every Telegram message enters an n8n AI Agent powered by Google Gemini, session-based Simple Memory, and live search tool nodes (SerpApi Google Search and Tavily). The agent decides when to query live web results, grounds its reasoning in retrieved snippets, and replies directly in Telegram.',
       businessValue:
-        'Provides immediate 24/7 responsiveness for routine inquiries while keeping human agents focused on high-priority support cases.',
+        'Transforms Telegram into an instant, conversational search engine with up-to-date web answers and multi-turn memory.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_11-57-37_d1d28c39.jpg',
     },
     {
       id: 'proj-daily-bi',
@@ -532,6 +534,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Instead of raw spreadsheet dumps, the workflow performs deterministic arithmetic first in JavaScript, then passes verified aggregate figures to an LLM solely to produce clear prose commentary delivered to leadership channels.',
       businessValue:
         'Replaces manual end-of-day spreadsheet compilation with a reliable, repeatable executive summary every morning.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_11-47-22_d723c3a3.jpg',
     },
     {
       id: 'proj-job-tracker',
@@ -604,6 +607,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Prompt engineering rules evaluate company size, stated pain points, and service alignment against defined ICP criteria. High-priority leads trigger instant Slack notifications with a pre-drafted outreach brief.',
       businessValue:
         'Standardizes lead qualification criteria and ensures high-intent B2B inquiries receive rapid, well-informed follow-up.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_12-05-19_2bf373f2.jpg',
     },
     {
       id: 'proj-swizz-care',
@@ -627,6 +631,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'By pairing lightweight form collection with deterministic routing rules, positive reviews are archived cleanly while negative or urgent entries immediately notify the service lead with actionable context.',
       businessValue:
         'Closes the feedback loop automatically and prevents critical customer service concerns from going unnoticed.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_11-51-11_02e9300a.jpg',
     },
     {
       id: 'proj-telegram-delivery',
@@ -650,6 +655,40 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Combines regex/AI entity extraction with a real-time lookup against the active dispatch table so customers receive accurate, polite delivery updates in seconds without interrupting dispatch staff.',
       businessValue:
         'Reduces repetitive manual chat replies for dispatch teams and gives customers instant order transparency.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_12-02-02_b2625caf.jpg',
+    },
+    {
+      id: 'proj-ai-lead-qual-system',
+      title: 'AI Lead Qualification System',
+      category: 'CRM & Lead Ops',
+      status: 'Production Ready',
+      featured: true,
+      overview:
+        'An end-to-end automated CRM lead validation, AI scoring, tiered routing, and scheduled multi-channel follow-up system built in n8n with Anthropic Claude and Google Sheets.',
+      businessProblem:
+        'Sales teams lose pipeline momentum when raw CRM leads arrive with missing contact fields, inconsistent scoring criteria, and delayed manual follow-ups across Hot, Warm, Cold, and Unqualified tiers.',
+      solutionImplemented:
+        'Engineered a dual-trigger n8n orchestration pipeline that cleans incoming CRM records, separates complete vs. incomplete leads for automated data-completion outreach, scores qualified leads via Anthropic Chat Model with Structured Output Parsers, and routes Hot, Warm, Cold, and Unqualified tiers into dedicated CRM updates and sales alerts.',
+      tools: [
+        'n8n',
+        'Anthropic Claude',
+        'Structured Output',
+        'Google Sheets',
+        'Gmail',
+        'JavaScript',
+        'HTTP Requests',
+      ],
+      workflowSteps: [
+        'Scheduled triggers poll CRM leads and pending follow-up queues from Google Sheets',
+        'JavaScript validation cleans records and routes incomplete leads to automated follow-up channels',
+        'Anthropic LLM Chains with Structured Output Parsers score fit and assign qualification status',
+        'Switch routing classifies Hot, Warm, Cold, and Unqualified leads, notifying sales and updating CRM rows',
+      ],
+      workflowExplanation:
+        'The architecture separates scheduled follow-up execution from live lead qualification. Incoming CRM rows are normalized in JavaScript and checked for completeness; incomplete records trigger automated Gmail or HTTP follow-up nudges, while complete leads pass through Anthropic Basic LLM Chains paired with Structured Output Parsers to produce deterministic lead scores and tier labels (Hot, Warm, Cold, Unqualified) before updating the main CRM and alerting sales.',
+      businessValue:
+        'Eliminates manual lead sorting and follow-up delays, ensuring incomplete prospects are re-engaged automatically while sales receives instant alerts only for qualified, prioritized leads.',
+      coverImageUrl: '/assets/aistudio/photo_2026-11-24_12-10-40_8ca6e905.jpg',
     },
   ],
   skillCategories: [

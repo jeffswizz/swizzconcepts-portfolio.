@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { DEFAULT_PORTFOLIO_DATA } from '../data/defaultPortfolio.ts';
-import { AdminState, ContactSubmission, PortfolioData } from '../types/portfolio.ts';
+import type { AdminState, ContactSubmission, PortfolioData } from '../types/portfolio.ts';
 
 const DATA_DIR = path.resolve(process.cwd(), '.data');
 const DB_FILE = path.resolve(DATA_DIR, 'portfolio-db.json');

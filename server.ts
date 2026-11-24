@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import dotenv from 'dotenv';
-import express, { NextFunction, Request, Response } from 'express';
+import express, { type NextFunction, type Request, type Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
@@ -16,7 +16,7 @@ import {
   updateSubmissionStatus,
   verifyAdminPassword,
 } from './src/server/store.ts';
-import {
+import type {
   BlueprintFeature,
   BlueprintFeatureIcon,
   BlueprintScenario,
@@ -29,7 +29,7 @@ import {
 
 dotenv.config();
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 const TOKEN_TTL_MS = 1000 * 60 * 60 * 8; // 8 hours
 const revokedTokenIds = new Set<string>();
