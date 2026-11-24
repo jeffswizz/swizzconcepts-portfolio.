@@ -232,7 +232,7 @@ async function startServer(): Promise<void> {
     const fullName = sanitizeString(req.body?.fullName, 120);
     const email = sanitizeString(req.body?.email, 160).toLowerCase();
     const company = sanitizeString(req.body?.company, 140);
-    const serviceOfInterest = sanitizeString(req.body?.serviceOfInterest, 140);
+    const serviceOfInterest = sanitizeString(req.body?.serviceOfInterest, 140) || 'Workflow Automation';
     const projectDescription = sanitizeString(req.body?.projectDescription, 2500);
 
     if (fullName.length < 2) {
@@ -243,12 +243,8 @@ async function startServer(): Promise<void> {
       res.status(400).json({ error: 'Please provide a valid email address.' });
       return;
     }
-    if (!serviceOfInterest) {
-      res.status(400).json({ error: 'Please select a service of interest.' });
-      return;
-    }
-    if (projectDescription.length < 15) {
-      res.status(400).json({ error: 'Please describe your project requirements (at least 15 characters).' });
+    if (projectDescription.length < 10) {
+      res.status(400).json({ error: 'Please describe your project requirements (at least 10 characters).' });
       return;
     }
 

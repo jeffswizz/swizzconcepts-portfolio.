@@ -54,6 +54,14 @@
     </script>
   </head>
   <body class="bg-[#F8F5ED] dark:bg-[#0D0D0F] text-[#242424] dark:text-[#F8F5ED] antialiased selection:bg-[#C47745]/20 selection:text-[#242424] dark:selection:text-[#F8F5ED]">
+    <form name="project-inquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="fullName" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="serviceOfInterest" />
+      <textarea name="projectDescription"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

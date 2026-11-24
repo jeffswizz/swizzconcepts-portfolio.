@@ -67,21 +67,44 @@ export function ContactSection({
     }
   };
 
+  const buildMailtoFallbackUrl = (
+    senderName: string,
+    senderEmail: string,
+    senderCompany: string,
+    service: string,
+    description: string
+  ) => {
+    const subject = encodeURIComponent(`Project Inquiry: ${service}`);
+    const body = encodeURIComponent(
+      `Name: ${senderName}\nEmail: ${senderEmail}\nCompany: ${senderCompany || 'N/A'}\nService: ${service}\n\nProject Details:\n${description}`
+    );
+    return `mailto:${profile.email}?subject=${subject}&body=${body}`;
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
     setSuccessMsg('');
 
-    if (fullName.trim().length < 2) {
-      setErrorMsg('Please enter your full name.');
+    const trimmedName = fullName.trim();
+    const trimmedEmail = email.trim();
+    const trimmedCompany = company.trim();
+    const selectedService = serviceOfInterest || services[0]?.title || 'Workflow Automation';
+    const trimmedDesc = projectDescription.trim();
+
+    if (trimmedName.length < 2) {
+      setErrorMsg('Please enter your full name (at least 2 characters).');
+      document.getElementById('contact-name')?.focus();
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmedEmail)) {
       setErrorMsg('Please enter a valid email address.');
+      document.getElementById('contact-email')?.focus();
       return;
     }
-    if (projectDescription.trim().length < 15) {
-      setErrorMsg('Please provide at least a brief 15-character description of your workflow or project.');
+    if (trimmedDesc.length < 10) {
+      setErrorMsg('Please provide a brief description of your workflow or project (at least 10 characters).');
+      document.getElementById('contact-desc')?.focus();
       return;
     }
 
@@ -91,28 +114,73 @@ export function ContactSection({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fullName: fullName.trim(),
-          email: email.trim(),
-          company: company.trim(),
-          serviceOfInterest,
-          projectDescription: projectDescription.trim(),
+          fullName: trimmedName,
+          email: trimmedEmail,
+          company: trimmedCompany,
+          serviceOfInterest: selectedService,
+          projectDescription: trimmedDesc,
         }),
       });
-      const data = await response.json();
-      if (!response.ok) {
-        setErrorMsg(data.error || 'Unable to submit your message right now. Please try again.');
+
+      const rawText = await response.text();
+      let parsed: { ok?: boolean; error?: string } | null = null;
+      try {
+        parsed = rawText ? (JSON.parse(rawText) as { ok?: boolean; error?: string }) : null;
+      } catch {
+        parsed = null;
+      }
+
+      if (response.ok && parsed?.ok) {
+        setSuccessMsg(
+          'Your inquiry has been received securely. I will review your workflow requirements and reply shortly.'
+        );
+        setFullName('');
+        setEmail('');
+        setCompany('');
+        setProjectDescription('');
         return;
       }
 
-      setSuccessMsg(
-        'Your inquiry has been received securely. I will review your workflow requirements and reply shortly.'
+      // If Express returned a real validation/rate-limit JSON error (400 / 429), show it directly
+      if (parsed?.error) {
+        setErrorMsg(parsed.error);
+        return;
+      }
+
+      // Static hosting fallback (e.g. Netlify Forms when /api/contact returns 404/405/HTML)
+      const encoded = new URLSearchParams({
+        'form-name': 'project-inquiry',
+        fullName: trimmedName,
+        email: trimmedEmail,
+        company: trimmedCompany,
+        serviceOfInterest: selectedService,
+        projectDescription: trimmedDesc,
+      }).toString();
+
+      const netlifyRes = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encoded,
+      });
+
+      if (netlifyRes.ok) {
+        setSuccessMsg(
+          'Your inquiry has been sent successfully. I will review your workflow requirements and reply shortly.'
+        );
+        setFullName('');
+        setEmail('');
+        setCompany('');
+        setProjectDescription('');
+        return;
+      }
+
+      setErrorMsg(
+        'Could not reach the inquiry server. You can send your request directly via Email or WhatsApp below.'
       );
-      setFullName('');
-      setEmail('');
-      setCompany('');
-      setProjectDescription('');
     } catch {
-      setErrorMsg('Network error while sending your message. Please try again.');
+      setErrorMsg(
+        'Network error while sending your request. You can send it directly via Email or WhatsApp below.'
+      );
     } finally {
       setSubmitting(false);
     }
@@ -282,7 +350,16 @@ export function ContactSection({
               {siteContent.contactFormSubtext}
             </p>
 
-            <form onSubmit={(e) => void handleSubmit(e)} noValidate className="mt-6 space-y-5">
+            <form
+              name="project-inquiry"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              onSubmit={(e) => void handleSubmit(e)}
+              noValidate
+              className="mt-6 space-y-5"
+            >
+              <input type="hidden" name="form-name" value="project-inquiry" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="contact-name" className="block text-xs font-semibold text-[#242424] dark:text-[#F8F5ED] mb-1.5">
@@ -290,6 +367,7 @@ export function ContactSection({
                   </label>
                   <input
                     id="contact-name"
+                    name="fullName"
                     type="text"
                     required
                     value={fullName}
@@ -305,6 +383,7 @@ export function ContactSection({
                   </label>
                   <input
                     id="contact-email"
+                    name="email"
                     type="email"
                     required
                     value={email}
@@ -322,6 +401,7 @@ export function ContactSection({
                   </label>
                   <input
                     id="contact-company"
+                    name="company"
                     type="text"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
@@ -336,6 +416,7 @@ export function ContactSection({
                   </label>
                   <select
                     id="contact-service"
+                    name="serviceOfInterest"
                     value={serviceOfInterest}
                     onChange={(e) => setServiceOfInterest(e.target.value)}
                     className="w-full px-3.5 py-2.5 text-sm bg-[#FFFDF9] dark:bg-[#0D0D0F] border border-[#E8DFD0] dark:border-[#2A2A2E] focus:border-[#C47745] focus:outline-none rounded-lg text-[#242424] dark:text-[#F8F5ED]"
@@ -357,6 +438,7 @@ export function ContactSection({
                 </label>
                 <textarea
                   id="contact-desc"
+                  name="projectDescription"
                   rows={4}
                   required
                   value={projectDescription}
@@ -369,16 +451,42 @@ export function ContactSection({
               {errorMsg && (
                 <div
                   role="alert"
-                  className="p-3.5 rounded-lg bg-[#C47745]/10 border border-[#C47745]/40 text-sm text-[#8F3D13] font-medium"
+                  className="p-3.5 rounded-lg bg-[#C47745]/10 border border-[#C47745]/45 text-sm text-[#8F3D13] dark:text-[#F2A679] font-medium space-y-2.5"
                 >
-                  {errorMsg}
+                  <p>{errorMsg}</p>
+                  {fullName.trim().length >= 2 && email.trim() && projectDescription.trim().length >= 10 && (
+                    <div className="flex flex-wrap items-center gap-2 pt-1">
+                      <a
+                        href={buildMailtoFallbackUrl(
+                          fullName.trim(),
+                          email.trim(),
+                          company.trim(),
+                          serviceOfInterest || 'Workflow Automation',
+                          projectDescription.trim()
+                        )}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#C47745] hover:bg-[#AE602E] rounded-md transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        Send via Email App
+                      </a>
+                      <a
+                        href={profile.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#242424] dark:text-[#F8F5ED] border border-[#C47745]/40 rounded-md hover:bg-[#C47745]/10 transition-colors"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        Message on WhatsApp
+                      </a>
+                    </div>
+                  )}
                 </div>
               )}
 
               {successMsg && (
                 <div
                   role="status"
-                  className="p-3.5 rounded-lg bg-[#242424] text-[#F8F5ED] text-sm font-medium flex items-start gap-2.5"
+                  className="p-3.5 rounded-lg bg-[#242424] dark:bg-[#0D0D0F] border border-transparent dark:border-[#C5A46D]/40 text-[#F8F5ED] text-sm font-medium flex items-start gap-2.5"
                 >
                   <Check className="w-4 h-4 text-[#C5A46D] shrink-0 mt-0.5" />
                   <span>{successMsg}</span>

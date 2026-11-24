@@ -17,7 +17,9 @@
       "whatsappUrl": "https://wa.me/2348168819791",
       "whatsappDisplay": "+234(0)8168819791",
       "linkedinUrl": "https://www.linkedin.com/in/nnaji-chukwuma-jefferson",
-      "linkedinHandle": "linkedin.com/in/nnaji-chukwuma-jefferson"
+      "linkedinHandle": "linkedin.com/in/nnaji-chukwuma-jefferson",
+      "bookingUrl": "",
+      "bookingButtonLabel": "Book a Discovery Call"
     },
     "siteContent": {
       "heroHeadline": "Transforming Business Processes Into Intelligent Automated Systems.",
@@ -28,10 +30,397 @@
         "My technical foundation was built through intensive formal AI and Automation training at TS Academy, where I mastered visual orchestration across n8n, Make.com, and Zapier alongside REST APIs, webhooks, CRM pipelines, and Retrieval-Augmented Generation (RAG) architectures.",
         "During my practical internship at Big Brains, I moved from classroom theory into production-oriented engineering—designing, testing, and debugging end-to-end automation systems including an AI-powered Lead Qualification CRM that scores, classifies, and routes incoming prospects automatically."
       ],
+      "aboutPillarsTitle": "Core Engineering Focus",
+      "aboutPillarsSubtitle": "Practical disciplines applied across client and internal workflows.",
+      "aboutPillars": [
+        "AI & Automation training at TS Academy",
+        "Practical internship at Big Brains",
+        "Workflow automation with n8n, Make.com & Zapier",
+        "REST API and webhook integrations",
+        "AI agent development & prompt engineering",
+        "RAG-based knowledge systems",
+        "AI-powered lead qualification CRM",
+        "End-to-end practical automation builds"
+      ],
+      "timelineHeadline": "From Curiosity to Production Automation Systems",
+      "servicesHeadline": "Intelligent Automation & Systems Engineering",
+      "servicesSubtext": "Practical, maintainable systems designed around your existing applications, APIs, and operational workflows.",
+      "projectsHeadline": "Practical Automation Systems & Case Studies",
+      "projectsSubtext": "Every project solves an operational problem through structured workflows, API integrations, and AI reasoning.",
+      "skillsHeadline": "Tools, Platforms & Honest Proficiency",
+      "skillsSubtext": "Organized by engineering domain with transparent classification between hands-on practical builds and active learning.",
+      "credentialsHeadline": "Formal Training & Applied Engineering Internship",
+      "credentialsSubtext": "Verified technical education and hands-on workflow execution across real business automation systems.",
+      "faqHeadline": "Frequently Asked Questions",
+      "faqSubtext": "Clear answers on platform choice, API cost ownership, error recovery, timelines, and post-launch handover.",
       "contactHeadline": "Let's Build Something Intelligent.",
       "contactSubtext": "Have a repetitive operational bottleneck, disconnected software stack, or AI agent concept? Share your workflow goals below and let us design a dependable system.",
+      "contactFormTitle": "Start a Project Conversation",
+      "contactFormSubtext": "Share your current tools and manual process—no generic sales pitch, just practical engineering feedback.",
       "footerTagline": "Chukwuma Jefferson Nnaji · Enugu, Nigeria"
     },
+    "blueprints": [
+      {
+        "id": "bp-lead",
+        "label": "B2B Lead Qualification",
+        "stackSummary": "Fillout · n8n · OpenAI · HubSpot",
+        "triggerSource": "Fillout Intake Webhook",
+        "triggerMethod": "POST /webhooks/lead-intake",
+        "inboundText": "Operations team of 25 looking to automate HubSpot follow-ups and invoice extraction.",
+        "triggerMeta": "Validated JSON payload · Deduplicated email",
+        "classification": "High-Intent ICP · Automation Build",
+        "aiModel": "LLM Structured Extractor",
+        "aiActionMeta": "Scored company size, urgency & workflow scope",
+        "crmTarget": "HubSpot + Airtable CRM",
+        "crmAction": "Created Deal #418 · Assigned Priority Tier A · Sent Slack Brief",
+        "crmMeta": "Idempotent upsert · Owner notified",
+        "latencyLabel": "1.4s end-to-end",
+        "outputJson": {
+          "intent": "workflow_automation",
+          "qualification_tier": "Tier A",
+          "crm_sync": "hubspot_upserted",
+          "next_action": "notify_sales_slack"
+        },
+        "features": [
+          {
+            "label": "Webhook Auth",
+            "value": "HMAC signature + email dedupe key",
+            "statusTag": "Verified",
+            "icon": "auth"
+          },
+          {
+            "label": "Schema Guardrail",
+            "value": "Strict JSON enum & tier validation",
+            "statusTag": "Validated",
+            "icon": "schema"
+          },
+          {
+            "label": "Retry & Fallback",
+            "value": "3x backoff + Slack dead-letter alert",
+            "statusTag": "Armed",
+            "icon": "retry"
+          },
+          {
+            "label": "Idempotent Sync",
+            "value": "Upserted by contact email & domain",
+            "statusTag": "Synced",
+            "icon": "sync"
+          },
+          {
+            "label": "Execution SLA",
+            "value": "1.4s median · 99.9% completion",
+            "statusTag": "Passed",
+            "icon": "latency"
+          },
+          {
+            "label": "Audit & Notify",
+            "value": "Deal #418 brief posted to #sales-ops",
+            "statusTag": "Dispatched",
+            "icon": "audit"
+          }
+        ]
+      },
+      {
+        "id": "bp-support",
+        "label": "Telegram Support Triage",
+        "stackSummary": "Telegram · n8n · Gemini · Airtable",
+        "triggerSource": "Telegram Bot Webhook",
+        "triggerMethod": "POST /webhooks/telegram-updates",
+        "inboundText": "Order #SWZ-2094 has not arrived yet; can I get the current dispatch update?",
+        "triggerMeta": "Parsed chat_id & order reference token",
+        "classification": "Order Status Lookup · Dispatch Query",
+        "aiModel": "AI Intent Classifier",
+        "aiActionMeta": "Extracted order ID & mapped dispatch query intent",
+        "crmTarget": "Airtable Dispatch Table",
+        "crmAction": "Queried Record #SWZ-2094 · Sent Live ETA Reply on Telegram",
+        "crmMeta": "Thread logged · Escalation bypassed",
+        "latencyLabel": "0.9s end-to-end",
+        "outputJson": {
+          "channel": "telegram",
+          "intent": "delivery_lookup",
+          "order_ref": "SWZ-2094",
+          "resolution": "auto_replied"
+        },
+        "features": [
+          {
+            "label": "Webhook Auth",
+            "value": "Telegram secret token header check",
+            "statusTag": "Verified",
+            "icon": "auth"
+          },
+          {
+            "label": "Schema Guardrail",
+            "value": "Regex + LLM order code verification",
+            "statusTag": "Validated",
+            "icon": "schema"
+          },
+          {
+            "label": "Retry & Fallback",
+            "value": "Human escalation if order missing",
+            "statusTag": "Armed",
+            "icon": "retry"
+          },
+          {
+            "label": "Idempotent Sync",
+            "value": "Thread state keyed by chat_id",
+            "statusTag": "Synced",
+            "icon": "sync"
+          },
+          {
+            "label": "Execution SLA",
+            "value": "0.9s instant customer response",
+            "statusTag": "Passed",
+            "icon": "latency"
+          },
+          {
+            "label": "Audit & Notify",
+            "value": "Transcript archived in Airtable",
+            "statusTag": "Dispatched",
+            "icon": "audit"
+          }
+        ]
+      },
+      {
+        "id": "bp-rag",
+        "label": "RAG Knowledge Assistant",
+        "stackSummary": "Slack · Make/n8n · Vector DB · Gemini",
+        "triggerSource": "Internal Ops Webhook",
+        "triggerMethod": "POST /webhooks/ops-knowledge",
+        "inboundText": "What is our client onboarding SLA for custom REST API webhook integrations?",
+        "triggerMeta": "Authenticated workspace request · Role verified",
+        "classification": "Knowledge Retrieval · SOP Policy",
+        "aiModel": "RAG Grounded Agent",
+        "aiActionMeta": "Embedded query & retrieved top-3 SOP passages",
+        "crmTarget": "Supabase Vector Store",
+        "crmAction": "Retrieved 3 SOP Chunks · Synthesized Grounded Citation Reply",
+        "crmMeta": "Source verified · Audit record saved",
+        "latencyLabel": "1.7s end-to-end",
+        "outputJson": {
+          "retrieval": "vector_top_3",
+          "grounded": "true",
+          "source_doc": "onboarding_sla_v2",
+          "confidence": "verified"
+        },
+        "features": [
+          {
+            "label": "Webhook Auth",
+            "value": "Slack workspace signing & role check",
+            "statusTag": "Verified",
+            "icon": "auth"
+          },
+          {
+            "label": "Schema Guardrail",
+            "value": "Citation-only grounding enforcement",
+            "statusTag": "Validated",
+            "icon": "schema"
+          },
+          {
+            "label": "Retry & Fallback",
+            "value": "Zero-hallucination fallback response",
+            "statusTag": "Armed",
+            "icon": "retry"
+          },
+          {
+            "label": "Idempotent Sync",
+            "value": "Cached embedding lookup per query",
+            "statusTag": "Synced",
+            "icon": "sync"
+          },
+          {
+            "label": "Execution SLA",
+            "value": "1.7s top-k pgvector retrieval",
+            "statusTag": "Passed",
+            "icon": "latency"
+          },
+          {
+            "label": "Audit & Notify",
+            "value": "Source version logged per answer",
+            "statusTag": "Dispatched",
+            "icon": "audit"
+          }
+        ]
+      },
+      {
+        "id": "bp-audit",
+        "label": "AI Audit Report Generator",
+        "stackSummary": "Tally · n8n · OpenAI · Google Docs",
+        "triggerSource": "Tally Audit Assessment",
+        "triggerMethod": "POST /webhooks/audit-submit",
+        "inboundText": "Submitted 18 operational workflow responses covering CRM hygiene and manual invoicing.",
+        "triggerMeta": "Normalized 18 form fields · Schema checked",
+        "classification": "Ops Bottleneck Audit · Quick Wins",
+        "aiModel": "Multi-Step Report Synthesizer",
+        "aiActionMeta": "Identified 4 repetitive bottlenecks & ROI steps",
+        "crmTarget": "Google Docs + Gmail Dispatch",
+        "crmAction": "Generated Branded PDF Report · Logged Link in Airtable CRM",
+        "crmMeta": "Delivered to client inbox · CRM attached",
+        "latencyLabel": "3.2s end-to-end",
+        "outputJson": {
+          "bottlenecks_found": "4",
+          "top_priority": "invoice_ocr_sync",
+          "doc_generated": "google_docs_pdf",
+          "delivery": "gmail_dispatched"
+        },
+        "features": [
+          {
+            "label": "Webhook Auth",
+            "value": "Tally signature & submission ID check",
+            "statusTag": "Verified",
+            "icon": "auth"
+          },
+          {
+            "label": "Schema Guardrail",
+            "value": "18-field normalizer & ROI calculator",
+            "statusTag": "Validated",
+            "icon": "schema"
+          },
+          {
+            "label": "Retry & Fallback",
+            "value": "Docs PDF export retry with 2s delay",
+            "statusTag": "Armed",
+            "icon": "retry"
+          },
+          {
+            "label": "Idempotent Sync",
+            "value": "Single report link per submission ID",
+            "statusTag": "Synced",
+            "icon": "sync"
+          },
+          {
+            "label": "Execution SLA",
+            "value": "3.2s full multi-page PDF synthesis",
+            "statusTag": "Passed",
+            "icon": "latency"
+          },
+          {
+            "label": "Audit & Notify",
+            "value": "Client email + CRM attachment logged",
+            "statusTag": "Dispatched",
+            "icon": "audit"
+          }
+        ]
+      },
+      {
+        "id": "bp-travel",
+        "label": "Airline Travel Notifications",
+        "stackSummary": "Flight API · n8n · AI Classifier · WhatsApp",
+        "triggerSource": "Scheduled Flight API Poll",
+        "triggerMethod": "GET /v2/flights/status-watch",
+        "inboundText": "Flight W3-402 departure shifted by +45m; boarding gate changed from B4 to B9.",
+        "triggerMeta": "Diff detected against cached schedule state",
+        "classification": "Schedule Delay + Gate Change Alert",
+        "aiModel": "Alert Priority Classifier",
+        "aiActionMeta": "Composed concise passenger update with new gate",
+        "crmTarget": "WhatsApp + Airtable Itinerary",
+        "crmAction": "Updated Passenger Itinerary Record · Dispatched WhatsApp Alert",
+        "crmMeta": "Duplicate alert prevented · State synced",
+        "latencyLabel": "1.1s end-to-end",
+        "outputJson": {
+          "flight_code": "W3-402",
+          "change_type": "delay_and_gate",
+          "new_gate": "B9",
+          "notification": "whatsapp_sent"
+        },
+        "features": [
+          {
+            "label": "Webhook Auth",
+            "value": "Signed API poll + state hash diffing",
+            "statusTag": "Verified",
+            "icon": "auth"
+          },
+          {
+            "label": "Schema Guardrail",
+            "value": "Verified IATA gate & time delta",
+            "statusTag": "Validated",
+            "icon": "schema"
+          },
+          {
+            "label": "Retry & Fallback",
+            "value": "SMS fallback if WhatsApp undelivered",
+            "statusTag": "Armed",
+            "icon": "retry"
+          },
+          {
+            "label": "Idempotent Sync",
+            "value": "State hash blocks duplicate alerts",
+            "statusTag": "Synced",
+            "icon": "sync"
+          },
+          {
+            "label": "Execution SLA",
+            "value": "1.1s diff-to-WhatsApp dispatch",
+            "statusTag": "Passed",
+            "icon": "latency"
+          },
+          {
+            "label": "Audit & Notify",
+            "value": "Passenger itinerary timeline updated",
+            "statusTag": "Dispatched",
+            "icon": "audit"
+          }
+        ]
+      },
+      {
+        "id": "bp-invoice",
+        "label": "Invoice & Ledger OCR",
+        "stackSummary": "Gmail · n8n · Vision AI · QuickBooks",
+        "triggerSource": "Gmail Invoice Attachment Trigger",
+        "triggerMethod": "POST /webhooks/ap-invoice-ocr",
+        "inboundText": "Vendor PDF #INV-8841 ($2,450.00): Cloud infra & API retainer for November billing cycle.",
+        "triggerMeta": "Extracted PDF stream · Verified vendor whitelist",
+        "classification": "Accounts Payable · Software Expense",
+        "aiModel": "Multimodal Invoice Extractor",
+        "aiActionMeta": "Parsed line items, tax rate & GL cost center",
+        "crmTarget": "QuickBooks + Slack Finance",
+        "crmAction": "Created Draft Bill #INV-8841 · Routed Slack Approval Card",
+        "crmMeta": "Receipt archived · Ledger reconciled",
+        "latencyLabel": "2.1s end-to-end",
+        "outputJson": {
+          "invoice_no": "INV-8841",
+          "total_usd": "2450.00",
+          "gl_category": "cloud_infrastructure",
+          "ledger_status": "pending_approval"
+        },
+        "features": [
+          {
+            "label": "Webhook Auth",
+            "value": "OAuth Gmail watch + vendor allowlist",
+            "statusTag": "Verified",
+            "icon": "auth"
+          },
+          {
+            "label": "Schema Guardrail",
+            "value": "Line-item sum equals invoice total",
+            "statusTag": "Validated",
+            "icon": "schema"
+          },
+          {
+            "label": "Retry & Fallback",
+            "value": "Flagged for manual review on mismatch",
+            "statusTag": "Armed",
+            "icon": "retry"
+          },
+          {
+            "label": "Idempotent Sync",
+            "value": "Deduplicated by vendor + invoice_no",
+            "statusTag": "Synced",
+            "icon": "sync"
+          },
+          {
+            "label": "Execution SLA",
+            "value": "2.1s OCR parse to QuickBooks draft",
+            "statusTag": "Passed",
+            "icon": "latency"
+          },
+          {
+            "label": "Audit & Notify",
+            "value": "PDF linked + Slack CFO approval ping",
+            "statusTag": "Dispatched",
+            "icon": "audit"
+          }
+        ]
+      }
+    ],
     "timeline": [
       {
         "id": "tl-1",
@@ -719,6 +1108,38 @@
           "proj-b2b-lead-crm",
           "proj-daily-bi"
         ]
+      }
+    ],
+    "faqs": [
+      {
+        "id": "faq-1",
+        "question": "How do you decide between n8n, Make.com, and Zapier for my workflow?",
+        "answer": "I choose n8n when you want full data ownership, self-hosting options, complex JavaScript transformations, or cost-effective high-volume AI loops. Make.com works well for visual multi-branch SaaS orchestration, while Zapier is ideal for lightweight, quick-start triggers across standard business apps."
+      },
+      {
+        "id": "faq-2",
+        "question": "Who owns the accounts, workflows, and OpenAI or Gemini API costs?",
+        "answer": "You retain 100% ownership. All workflows, webhooks, vector databases, and LLM API keys run inside your own workspace and billing accounts so there is zero vendor lock-in and full visibility into monthly API usage."
+      },
+      {
+        "id": "faq-3",
+        "question": "How are errors, rate limits, and unexpected AI outputs handled?",
+        "answer": "Every production pipeline includes structured JSON schema validation, idempotency keys to avoid duplicate CRM records, exponential retry backoffs for transient API failures, and instant Slack, Telegram, or email alerts whenever human review is required."
+      },
+      {
+        "id": "faq-4",
+        "question": "What is the typical timeline from discovery call to a live system?",
+        "answer": "Focused single-workflow automations (such as lead qualification or Telegram triage) typically go live within 5 to 7 business days. Multi-system AI agent or RAG knowledge architectures usually take 2 to 3 weeks including edge-case testing and documentation."
+      },
+      {
+        "id": "faq-5",
+        "question": "Can you connect internal tools or APIs that do not have native integrations?",
+        "answer": "Yes. Using custom HTTP Request nodes, OAuth 2.0 flows, webhook listeners, and JavaScript payload normalization, I bridge custom backends, legacy CRMs, and industry-specific APIs directly into your automation stack."
+      },
+      {
+        "id": "faq-6",
+        "question": "What documentation and support do I receive after handover?",
+        "answer": "You receive an architecture diagram, environment/credential setup notes, and a short recorded walkthrough showing how every trigger and fallback works, plus optional ongoing maintenance if your business tools evolve."
       }
     ]
   },
